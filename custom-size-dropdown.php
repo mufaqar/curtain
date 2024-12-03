@@ -58,46 +58,33 @@ add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
 /*Shipping Applied*/
 
-add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fees');
+
+//add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fees');
 function add_custom_shipping_fees() {
     if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
 
-    // Retrieve the selected shipping method
-    $chosen_methods = WC()->session->get('shipping_method');
-    $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
+    // Ensure we only apply the custom fees when the payment method is Cash on Delivery
+    $chosen_payment_method = WC()->session->get('chosen_payment_method');
+    if ($chosen_payment_method === 'cod') { // Check if Cash on Delivery is selected
 
-    // Only add fees if UPS Ground shipping method is selected
-    if (strpos($chosen_shipping, 'ups') !== false) {
-        // Get existing shipping cost
-        $shipping_total = 0;
-        $packages = WC()->shipping()->get_packages();
-
-        foreach ($packages as $package) {
-            if (isset($package['rates'][$chosen_shipping])) {
-                $shipping_total = $package['rates'][$chosen_shipping]->cost;
+        // Remove existing shipping cost
+        foreach (WC()->cart->get_shipping_packages() as $package) {
+            foreach ($package['rates'] as $rate_id => $rate) {
+                WC()->cart->remove_cart_item($rate_id);
             }
         }
 
-        // Add $10 flat shipping supplies fee
+        // Add $10 flat fee for shipping supplies
         $supplies_fee = 10;
-        WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), $supplies_fee, false); // false = no tax on this fee
+        WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), $supplies_fee, false); // No tax on this fee
 
-        // Add 4% PayPal fee based on the total (subtotal + shipping + supplies fee)
+        // Calculate 4% of the cart subtotal
         $cart_subtotal = WC()->cart->get_subtotal();
-        $paypal_fee = ($cart_subtotal + $shipping_total + $supplies_fee) * 0.04;
-        WC()->cart->add_fee(__('PayPal Fee', 'woocommerce'), $paypal_fee, false);
-    }
-}
+        $custom_shipping_fee = $cart_subtotal * 0.04;
 
-
-add_filter('woocommerce_cart_totals_fee_html', 'rearrange_custom_fees_display', 10, 2);
-function rearrange_custom_fees_display($fee_html, $fee) {
-    // Check if the fee is the one we added and modify accordingly
-    if ($fee->name === 'Shipping Supplies Fee' || $fee->name === 'PayPal Fee') {
-        // Move fees display as needed above taxes
-        return sprintf('<tr class="fee">%s</tr>', $fee_html);
+        // Add the 4% custom shipping fee
+        WC()->cart->add_fee(__('Custom Shipping (4% of price)', 'woocommerce'), $custom_shipping_fee, false);
     }
-    return $fee_html;
 }
