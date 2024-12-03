@@ -58,8 +58,8 @@ add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
 /*Shipping Applied*/
 
-add_action('woocommerce_cart_calculate_fees', 'add_extra_fees_to_shipping');
-function add_extra_fees_to_shipping() {
+add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fees_based_on_selected_method');
+function add_custom_shipping_fees_based_on_selected_method() {
     if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
@@ -68,13 +68,14 @@ function add_extra_fees_to_shipping() {
     $chosen_methods = WC()->session->get('shipping_method');
     $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
 
-    // Only add fees if UPS Ground shipping method is selected
-    if (strpos($chosen_shipping, 'ups') !== false) {
+    // Check if the chosen shipping method is UPS Ground
+    if ($chosen_shipping === 'flexible_shipping_ups:9:03') { // Match the value from the HTML
+
         // Add $10 flat shipping supplies fee
         $supplies_fee = 10;
         WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), $supplies_fee, false); // No tax on this fee
 
-        // Calculate 4% of the cart subtotal (product price)
+        // Calculate 4% of the cart subtotal
         $cart_subtotal = WC()->cart->get_subtotal();
         $extra_fee = $cart_subtotal * 0.04;
 
