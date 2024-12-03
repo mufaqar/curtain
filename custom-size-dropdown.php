@@ -55,3 +55,51 @@ function set_custom_price_in_cart( $cart_object ) {
 }
 add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
+
+add_action('woocommerce_cart_calculate_fees', 'add_shipping_supplies_fee');
+function add_shipping_supplies_fee() {
+    if (is_admin() && !defined('DOING_AJAX')) {
+        return;
+    }
+
+    // Check if UPS Ground shipping method is selected
+    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
+
+    if (strpos($chosen_shipping, 'ups') !== false) {
+        WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), 10);
+    }
+}
+
+
+add_action('woocommerce_cart_calculate_fees', 'add_paypal_fee_surcharge');
+function add_paypal_fee_surcharge() {
+    if (is_admin() && !defined('DOING_AJAX')) {
+        return;
+    }
+
+    // Check if UPS Ground shipping method is selected
+    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
+
+    if (strpos($chosen_shipping, 'ups') !== false) {
+        $cart_total = WC()->cart->get_subtotal();
+        $paypal_fee = ($cart_total + 10) * 0.04; // Adding $10 flat fee before applying 4%
+        WC()->cart->add_fee(__('PayPal Fee', 'woocommerce'), $paypal_fee);
+    }
+}
+
+
+add_action('woocommerce_checkout_create_order', 'save_custom_fees_in_order', 10, 2);
+function save_custom_fees_in_order($order, $data) {
+    foreach (WC()->cart->get_fees() as $fee) {
+        $order->add_item(
+            new WC_Order_Item_Fee([
+                'name' => $fee->name,
+                'total' => $fee->amount,
+            ])
+        );
+    }
+}
+
+
