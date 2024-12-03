@@ -56,21 +56,24 @@ function set_custom_price_in_cart( $cart_object ) {
 add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
 
+/*Shipping Applied*/
+
+
 add_action('woocommerce_cart_calculate_fees', 'add_shipping_supplies_fee');
 function add_shipping_supplies_fee() {
     if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
 
-    // Check if UPS Ground shipping method is selected
-    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    // Retrieve the selected shipping method
+    $chosen_methods = WC()->session->get('shipping_method');
     $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
 
+    // Check if the selected shipping method is UPS Ground
     if (strpos($chosen_shipping, 'ups') !== false) {
         WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), 10);
     }
 }
-
 
 add_action('woocommerce_cart_calculate_fees', 'add_paypal_fee_surcharge');
 function add_paypal_fee_surcharge() {
@@ -78,13 +81,14 @@ function add_paypal_fee_surcharge() {
         return;
     }
 
-    // Check if UPS Ground shipping method is selected
-    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    // Retrieve the selected shipping method
+    $chosen_methods = WC()->session->get('shipping_method');
     $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
 
+    // Check if the selected shipping method is UPS Ground
     if (strpos($chosen_shipping, 'ups') !== false) {
-        $cart_total = WC()->cart->get_subtotal();
-        $paypal_fee = ($cart_total + 10) * 0.04; // Adding $10 flat fee before applying 4%
+        $cart_total = WC()->cart->get_subtotal() + 10; // Add $10 flat fee to subtotal before calculating
+        $paypal_fee = $cart_total * 0.04; // Calculate 4% PayPal fee
         WC()->cart->add_fee(__('PayPal Fee', 'woocommerce'), $paypal_fee);
     }
 }
@@ -101,5 +105,3 @@ function save_custom_fees_in_order($order, $data) {
         );
     }
 }
-
-
