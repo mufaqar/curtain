@@ -58,33 +58,27 @@ add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
 /*Shipping Applied*/
 
-
-//add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fees');
-function add_custom_shipping_fees() {
+add_action('woocommerce_cart_calculate_fees', 'add_extra_fees_to_shipping');
+function add_extra_fees_to_shipping() {
     if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
 
-    // Ensure we only apply the custom fees when the payment method is Cash on Delivery
-    $chosen_payment_method = WC()->session->get('chosen_payment_method');
-    if ($chosen_payment_method === 'cod') { // Check if Cash on Delivery is selected
+    // Retrieve the selected shipping method
+    $chosen_methods = WC()->session->get('shipping_method');
+    $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
 
-        // Remove existing shipping cost
-        foreach (WC()->cart->get_shipping_packages() as $package) {
-            foreach ($package['rates'] as $rate_id => $rate) {
-                WC()->cart->remove_cart_item($rate_id);
-            }
-        }
-
-        // Add $10 flat fee for shipping supplies
+    // Only add fees if UPS Ground shipping method is selected
+    if (strpos($chosen_shipping, 'ups') !== false) {
+        // Add $10 flat shipping supplies fee
         $supplies_fee = 10;
         WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), $supplies_fee, false); // No tax on this fee
 
-        // Calculate 4% of the cart subtotal
+        // Calculate 4% of the cart subtotal (product price)
         $cart_subtotal = WC()->cart->get_subtotal();
-        $custom_shipping_fee = $cart_subtotal * 0.04;
+        $extra_fee = $cart_subtotal * 0.04;
 
-        // Add the 4% custom shipping fee
-        WC()->cart->add_fee(__('Custom Shipping (4% of price)', 'woocommerce'), $custom_shipping_fee, false);
+        // Add the 4% custom fee
+        WC()->cart->add_fee(__('Extra Shipping Fee (4% of product price)', 'woocommerce'), $extra_fee, false);
     }
 }
