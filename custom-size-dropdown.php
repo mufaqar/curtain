@@ -85,6 +85,11 @@ function add_custom_shipping_fee($cart) {
     if ($total_extra_fee > 0) {
         $cart->add_fee(__('Extra Shipping Fee', 'your-plugin-textdomain'), $total_extra_fee);
     }
+      // Add $10 extra fee if PayPal is the selected payment method
+      if (is_paypal_payment_method_selected()) {
+        $paypal_fee = 10;
+        $cart->add_fee(__('PayPal Fee', 'your-plugin-textdomain'), $paypal_fee);
+    }
 }
 
 /**
@@ -97,4 +102,11 @@ function is_custom_plugin_product($product_id) {
     
     // Return true if the product type is 'rollover_tarps', otherwise false
     return $product_type === 'rollover_tarps';
+}
+
+
+function is_paypal_payment_method_selected() {
+    // Access the chosen payment method
+    $chosen_payment_method = WC()->session->get('chosen_payment_method');
+    return $chosen_payment_method === 'paypal'; // Change 'paypal' if your payment gateway's slug differs
 }
