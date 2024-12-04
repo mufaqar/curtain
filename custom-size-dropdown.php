@@ -58,28 +58,43 @@ add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
 
 /*Shipping Applied*/
 
-add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fees_based_on_selected_method');
-function add_custom_shipping_fees_based_on_selected_method() {
+add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fee', 10, 1);
+
+function add_custom_shipping_fee($cart) {
+    // Ensure we're not affecting the backend or admin areas
     if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
 
-    // Retrieve the selected shipping method
-    $chosen_methods = WC()->session->get('shipping_method');
-    $chosen_shipping = isset($chosen_methods[0]) ? $chosen_methods[0] : '';
+    // Loop through the cart items to check for the specific product
+    $extra_fee_percentage = 4; // 4% shipping fee
+    $total_extra_fee = 0;
 
-    // Check if the chosen shipping method is UPS Ground
-    if ($chosen_shipping === 'flexible_shipping_ups:9:03') { // Match the value from the HTML
+    foreach ($cart->get_cart() as $cart_item) {
+        $product_id = $cart_item['product_id'];
 
-        // Add $10 flat shipping supplies fee
-        $supplies_fee = 10;
-        WC()->cart->add_fee(__('Shipping Supplies Fee', 'woocommerce'), $supplies_fee, false); // No tax on this fee
-
-        // Calculate 4% of the cart subtotal
-        $cart_subtotal = WC()->cart->get_subtotal();
-        $extra_fee = $cart_subtotal * 0.04;
-
-        // Add the 4% custom fee
-        WC()->cart->add_fee(__('Extra Shipping Fee (4% of product price)', 'woocommerce'), $extra_fee, false);
+        // Check if the product is the one for which the fee should be applied
+        if (is_custom_plugin_product($product_id)) { // Replace with your actual condition
+            $product_price = $cart_item['line_subtotal'];
+            $extra_fee = ($extra_fee_percentage / 100) * $product_price;
+            $total_extra_fee += $extra_fee;
+        }
     }
+
+    // Add the extra fee to the cart
+    if ($total_extra_fee > 0) {
+        $cart->add_fee(__('Extra Shipping Fee', 'your-plugin-textdomain'), $total_extra_fee);
+    }
+}
+
+/**
+ * Helper function to determine if a product is part of the custom plugin.
+ * Replace with your actual condition logic.
+ */
+function is_custom_plugin_product($product_id) {
+    // Check for the product meta key '_product_type' and value 'rollover_tarps'
+    $product_type = get_post_meta($product_id, '_product_type', true);
+    
+    // Return true if the product type is 'rollover_tarps', otherwise false
+    return $product_type === 'rollover_tarps';
 }
