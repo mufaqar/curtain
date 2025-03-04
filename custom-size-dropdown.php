@@ -2,7 +2,7 @@
 /*
 Plugin Name: Curtain Options
 Description: Custom curtain options to WooCommerce products.
-Version: 3.0.2
+Version: 2.0.1
 Author: Mufaqar
 */
 if (!defined('ABSPATH')) {
@@ -110,3 +110,23 @@ function is_paypal_payment_method_selected() {
     $chosen_payment_method = WC()->session->get('chosen_payment_method');
     return $chosen_payment_method === 'paypal'; // Change 'paypal' if your payment gateway's slug differs
 }
+
+
+add_filter('woocommerce_cart_shipping_packages', function($packages) {
+    foreach ($packages as &$package) {
+        $total_weight = 0;
+
+        foreach ($package['contents'] as $cart_item) {
+            $default_weight = wc_get_weight($cart_item['data']->get_weight(), 'kg'); // Product weight in kg
+            $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : 0;
+
+            // Use custom weight if provided, otherwise use the default weight
+            $total_weight += ($custom_weight > 0) ? $custom_weight : $default_weight;
+        }
+
+        // Override the total package weight
+        $package['contents_weight'] = $total_weight;
+    }
+
+    return $packages;
+}, 10, 1);
