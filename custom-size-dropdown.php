@@ -117,7 +117,7 @@ add_filter('woocommerce_cart_shipping_packages', function($packages) {
         $total_weight = 0;
 
         foreach ($package['contents'] as $cart_item) {
-            $default_weight = wc_get_weight($cart_item['data']->get_weight(), 'kg'); // Product weight in kg
+            $default_weight = wc_get_weight($cart_item['data']->get_weight(), 'lbs'); // Ensure weight is in pounds
             $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : 0;
 
             // Use custom weight if provided, otherwise use the default weight
