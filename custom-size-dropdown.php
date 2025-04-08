@@ -2,7 +2,7 @@
 /*
 Plugin Name: Curtain Options
 Description: Custom curtain options to WooCommerce products.
-Version: 2.0.2
+Version: 2.0.4
 Author: Mufaqar
 */
 if (!defined('ABSPATH')) {
@@ -111,25 +111,30 @@ function is_paypal_payment_method_selected() {
     return $chosen_payment_method === 'paypal'; // Change 'paypal' if your payment gateway's slug differs
 }
 
+// Hook to pass custom dimensions and weight to the product before totals are calculated
+add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 20, 1);
 
-add_filter('woocommerce_cart_shipping_packages', function($packages) {
-    foreach ($packages as &$package) {
-        $total_weight = 0;
+function custom_update_product_dimensions_and_weight($cart) {
+    if (is_admin() && !defined('DOING_AJAX')) return;
 
-        foreach ($package['contents'] as $cart_item) {
-            $default_weight = wc_get_weight($cart_item['data']->get_weight(), 'lbs'); // Get weight in pounds
-            $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : 0;
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
 
-            // Use custom weight if provided, otherwise use the default weight
-            $total_weight += ($custom_weight > 0) ? $custom_weight : $default_weight;
+        // Only apply for 'rollover_tarps' products
+        $product_id = $cart_item['product_id'];
+        if (!is_custom_plugin_product($product_id)) {
+            continue;
         }
 
-        // Override the total package weight
-        $package['contents_weight'] = $total_weight;
+        // Use your plugin's logic or POST/session/cookies to pass these values
+        $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
+        $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
+        $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
+        $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
+
+        // Apply to the product object
+        $cart_item['data']->set_weight($custom_weight);
+        $cart_item['data']->set_length($custom_length);
+        $cart_item['data']->set_width($custom_width);
+        $cart_item['data']->set_height($custom_height);
     }
-
-    // Log the package details for debugging
-    error_log("Modified Shipping Package: " . print_r($packages, true));
-
-    return $packages;
-}, 10, 1);
+}
