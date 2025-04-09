@@ -136,50 +136,50 @@ function is_paypal_payment_method_selected() {
 // }
 
 // Hook to pass custom dimensions and weight to the product before totals are calculated
-add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 20, 1);
+// add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 20, 1);
 
-function custom_update_product_dimensions_and_weight($cart) {
-    if (is_admin() && !defined('DOING_AJAX')) return;
+// function custom_update_product_dimensions_and_weight($cart) {
+//     if (is_admin() && !defined('DOING_AJAX')) return;
 
-    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+//     foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
 
-        // Only apply for 'rollover_tarps' products
-        $product_id = $cart_item['product_id'];
-        if (!is_custom_plugin_product($product_id)) {
-            continue;
-        }
+//         // Only apply for 'rollover_tarps' products
+//         $product_id = $cart_item['product_id'];
+//         if (!is_custom_plugin_product($product_id)) {
+//             continue;
+//         }
 
-        // Use your plugin's logic or POST/session/cookies to pass these values
-        // $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
-        // $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
-        // $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
-        // $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
+//         // Use your plugin's logic or POST/session/cookies to pass these values
+//         // $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
+//         // $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
+//         // $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
+//         // $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
 
-        // Apply to the product object
-        $cart_item['data']->set_weight(20.6);
-        $cart_item['data']->set_length(10);
-        $cart_item['data']->set_width(10);
-        $cart_item['data']->set_height(0.05);
-    }
-}
-
-
+//         // Apply to the product object
+//         $cart_item['data']->set_weight(20.6);
+//         $cart_item['data']->set_length(10);
+//         $cart_item['data']->set_width(10);
+//         $cart_item['data']->set_height(0.05);
+//     }
+// }
 
 
 
 
-add_action('wp_footer', 'mufaqar_print_all_cart_data_for_debug');
-function mufaqar_print_all_cart_data_for_debug() {
-    if (is_admin() || !is_user_logged_in()) return;
 
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        echo '<pre style="background:#f0f0f0; padding:20px; border:1px solid #ccc;">';
-        echo "🛒 WooCommerce Cart Contents:\n\n";
-        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-            echo "Cart Item Key: $cart_item_key\n";
-            print_r($cart_item);
-            echo "\n----------------------------\n\n";
-        }
-        echo '</pre>';
-    }
-}
+
+// add_action('wp_footer', 'mufaqar_print_all_cart_data_for_debug');
+// function mufaqar_print_all_cart_data_for_debug() {
+//     if (is_admin() || !is_user_logged_in()) return;
+
+//     if (defined('WP_DEBUG') && WP_DEBUG) {
+//         echo '<pre style="background:#f0f0f0; padding:20px; border:1px solid #ccc;">';
+//         echo "🛒 WooCommerce Cart Contents:\n\n";
+//         foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+//             echo "Cart Item Key: $cart_item_key\n";
+//             print_r($cart_item);
+//             echo "\n----------------------------\n\n";
+//         }
+//         echo '</pre>';
+//     }
+// }
