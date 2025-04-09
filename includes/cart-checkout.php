@@ -63,6 +63,14 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
             $cart_item_data['cal_weight'] = floatval($_POST['cal_weight']);
         }
 
+        if (isset($_POST['cal_width'])) {
+            $cart_item_data['cal_width'] = floatval($_POST['cal_width']);
+        }
+
+        if (isset($_POST['cal_length'])) {
+            $cart_item_data['cal_length'] = floatval($_POST['cal_length']);
+        }
+
         return $cart_item_data;
     }
     
