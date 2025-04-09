@@ -156,7 +156,9 @@ jQuery(document).ready(function ($) {
     
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
     $('#cal_weight').val(TotalWeight.toFixed(2));
-    
+
+ 
+   
 
     $('#weight_display').text( TotalWeight);
     $('#area_display').text( Math.ceil(Total_Box));
@@ -191,8 +193,8 @@ jQuery(document).ready(function ($) {
       let TotalWeight = sqWeightValue * totalArea;
 
 
-   
-      console.log("TotalWeight:", TotalWeight)
+
+
       $('#weight_display').text( TotalWeight);
       $('#area_display').text( Math.ceil(Total_Box));
       $('#size_display').text( selectedWidth * selectedHeight);
@@ -200,6 +202,13 @@ jQuery(document).ready(function ($) {
     
    
     }
+
+    $('#cal_width').val(selectedWidth);
+    $('#cal_length').val(selectedHeight);
+
+    console.log(" Weight:", TotalWeight)
+    console.log(" Width:", selectedWidth);
+    console.log(" Length:", selectedHeight);
 
 
     // Check if the electric system is selected and add the price

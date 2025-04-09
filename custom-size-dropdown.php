@@ -135,10 +135,22 @@ function is_paypal_payment_method_selected() {
 //     }
 // }
 
-// Hook to pass custom dimensions and weight to the product before totals are calculated
-add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 20, 1);
+// add_filter('woocommerce_cart_item_name', 'show_custom_cart_values', 10, 3);
+// function show_custom_cart_values($name, $cart_item, $cart_item_key) {
+//     if (isset($cart_item['custom_weight'])) {
+//         $name .= "<br><small>Weight: {$cart_item['custom_weight']}</small>";
+//         $name .= "<br><small>Length: {$cart_item['custom_length']}</small>";
+//         $name .= "<br><small>Width: {$cart_item['custom_width']}</small>";
+//         $name .= "<br><small>Height: 0.05</small>";
+//     }
+//     return $name;
+// }
 
-function custom_update_product_dimensions_and_weight($cart) {
+
+// Hook to pass custom dimensions and weight to the product before totals are calculated
+add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight_ups', 20, 1);
+
+function custom_update_product_dimensions_and_weight_ups($cart) {
     if (is_admin() && !defined('DOING_AJAX')) return;
 
     foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
@@ -149,17 +161,19 @@ function custom_update_product_dimensions_and_weight($cart) {
             continue;
         }
 
+       // var_dump($cart);
+
         // Use your plugin's logic or POST/session/cookies to pass these values
-        // $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
-        // $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
-        // $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
-        // $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
+        $custom_weight = isset($cart_item['cal_weight']) ? floatval($cart_item['cal_weight']) : $cart_item['data']->get_weight();
+        $custom_length = isset($cart_item['cal_length']) ? floatval($cart_item['cal_length']) : $cart_item['data']->get_length();
+        $custom_width  = isset($cart_item['cal_width'])  ? floatval($cart_item['cal_width'])  : $cart_item['data']->get_width();
+     
 
         // Apply to the product object
         $cart_item['data']->set_price( $cart_item['custom_price'] );
-        $cart_item['data']->set_weight(20.6);
-        $cart_item['data']->set_length(10);
-        $cart_item['data']->set_width(10);
+        $cart_item['data']->set_weight($custom_weight);
+        $cart_item['data']->set_length($custom_length);
+        $cart_item['data']->set_width($custom_width);
         $cart_item['data']->set_height(0.05);
     }
 }
