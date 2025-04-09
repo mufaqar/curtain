@@ -111,6 +111,30 @@ function is_paypal_payment_method_selected() {
     return $chosen_payment_method === 'paypal'; // Change 'paypal' if your payment gateway's slug differs
 }
 
+
+// add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 10, 1);
+
+// function custom_update_product_dimensions_and_weight($cart) {
+//     if (is_admin() && !defined('DOING_AJAX')) return;
+
+//     // Loop through cart items
+//     foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+//         $product = $cart_item['data'];
+
+//         // Replace this with your custom logic or values
+//         $custom_weight = 5;
+//         $custom_length = 10;
+//         $custom_width  = 10;
+//         $custom_height = 10;
+
+//         // Update product data dynamically
+//         $product->set_weight($custom_weight);
+//         $product->set_length($custom_length);
+//         $product->set_width($custom_width);
+//         $product->set_height($custom_height);
+//     }
+// }
+
 // Hook to pass custom dimensions and weight to the product before totals are calculated
 add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 20, 1);
 
@@ -126,15 +150,36 @@ function custom_update_product_dimensions_and_weight($cart) {
         }
 
         // Use your plugin's logic or POST/session/cookies to pass these values
-        $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
-        $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
-        $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
-        $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
+        // $custom_weight = isset($cart_item['custom_weight']) ? floatval($cart_item['custom_weight']) : $cart_item['data']->get_weight();
+        // $custom_length = isset($cart_item['custom_length']) ? floatval($cart_item['custom_length']) : $cart_item['data']->get_length();
+        // $custom_width  = isset($cart_item['custom_width'])  ? floatval($cart_item['custom_width'])  : $cart_item['data']->get_width();
+        // $custom_height = isset($cart_item['custom_height']) ? floatval($cart_item['custom_height']) : $cart_item['data']->get_height();
 
         // Apply to the product object
-        $cart_item['data']->set_weight($custom_weight);
-        $cart_item['data']->set_length($custom_length);
-        $cart_item['data']->set_width($custom_width);
-        $cart_item['data']->set_height($custom_height);
+        $cart_item['data']->set_weight(20.6);
+        $cart_item['data']->set_length(10);
+        $cart_item['data']->set_width(10);
+        $cart_item['data']->set_height(0.05);
+    }
+}
+
+
+
+
+
+
+add_action('wp_footer', 'mufaqar_print_all_cart_data_for_debug');
+function mufaqar_print_all_cart_data_for_debug() {
+    if (is_admin() || !is_user_logged_in()) return;
+
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        echo '<pre style="background:#f0f0f0; padding:20px; border:1px solid #ccc;">';
+        echo "🛒 WooCommerce Cart Contents:\n\n";
+        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            echo "Cart Item Key: $cart_item_key\n";
+            print_r($cart_item);
+            echo "\n----------------------------\n\n";
+        }
+        echo '</pre>';
     }
 }
