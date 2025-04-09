@@ -45,16 +45,6 @@ function update_price_before_adding_to_cart( $cart_item_data, $product_id ) {
 }
 add_filter( 'woocommerce_add_cart_item_data', 'update_price_before_adding_to_cart', 10, 2 );
 
-// Set the custom price when the item is added to the cart
-// function set_custom_price_in_cart( $cart_object ) {
-//     foreach( $cart_object->get_cart() as $cart_item ) {
-//         if( isset( $cart_item['custom_price'] ) ) {
-//             $cart_item['data']->set_price( $cart_item['custom_price'] );
-//         }
-//     }
-// }
-// add_action( 'woocommerce_before_calculate_totals', 'set_custom_price_in_cart' );
-
 
 /*Shipping Applied*/
 
@@ -99,8 +89,6 @@ function add_custom_shipping_fee($cart) {
 function is_custom_plugin_product($product_id) {
     // Check for the product meta key '_product_type' and value 'rollover_tarps'
     $product_type = get_post_meta($product_id, '_product_type', true);
-    
-    // Return true if the product type is 'rollover_tarps', otherwise false
     return $product_type === 'rollover_tarps';
 }
 
@@ -108,43 +96,8 @@ function is_custom_plugin_product($product_id) {
 function is_paypal_payment_method_selected() {
     // Access the chosen payment method
     $chosen_payment_method = WC()->session->get('chosen_payment_method');
-    return $chosen_payment_method === 'paypal'; // Change 'paypal' if your payment gateway's slug differs
+    return $chosen_payment_method === 'paypal'; 
 }
-
-
-// add_action('woocommerce_before_calculate_totals', 'custom_update_product_dimensions_and_weight', 10, 1);
-
-// function custom_update_product_dimensions_and_weight($cart) {
-//     if (is_admin() && !defined('DOING_AJAX')) return;
-
-//     // Loop through cart items
-//     foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
-//         $product = $cart_item['data'];
-
-//         // Replace this with your custom logic or values
-//         $custom_weight = 5;
-//         $custom_length = 10;
-//         $custom_width  = 10;
-//         $custom_height = 10;
-
-//         // Update product data dynamically
-//         $product->set_weight($custom_weight);
-//         $product->set_length($custom_length);
-//         $product->set_width($custom_width);
-//         $product->set_height($custom_height);
-//     }
-// }
-
-// add_filter('woocommerce_cart_item_name', 'show_custom_cart_values', 10, 3);
-// function show_custom_cart_values($name, $cart_item, $cart_item_key) {
-//     if (isset($cart_item['custom_weight'])) {
-//         $name .= "<br><small>Weight: {$cart_item['custom_weight']}</small>";
-//         $name .= "<br><small>Length: {$cart_item['custom_length']}</small>";
-//         $name .= "<br><small>Width: {$cart_item['custom_width']}</small>";
-//         $name .= "<br><small>Height: 0.05</small>";
-//     }
-//     return $name;
-// }
 
 
 // Hook to pass custom dimensions and weight to the product before totals are calculated
