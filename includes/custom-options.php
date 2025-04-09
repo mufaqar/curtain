@@ -39,9 +39,9 @@ function custom_curtain_options_add_to_product() {
          // Hidden field to hold the base price
          echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
          echo '<input type="hidden" name="cal_price" id="cal_price" value="">';
-         echo '<input type="hidden" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
-         echo '<input type="hidden" id="cal_width" name="cal_width" value="">';
-         echo '<input type="hidden" id="cal_length" name="cal_length" value="">';
+         echo '<input type="text" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
+         echo '<input type="text" id="cal_width" name="cal_width" value="">';
+         echo '<input type="text" id="cal_length" name="cal_length" value="">';
        
 
         // Price Display
