@@ -88,7 +88,7 @@ function add_custom_shipping_fee($cart) {
       // Add $10 extra fee if PayPal is the selected payment method
       if (is_paypal_payment_method_selected()) {
         $paypal_fee = 10;
-        $cart->add_fee(__('PayPal Fee', 'your-plugin-textdomain'), $paypal_fee);
+        $cart->add_fee(__('Processing and Handling', 'your-plugin-textdomain'), $paypal_fee);
     }
 }
 
