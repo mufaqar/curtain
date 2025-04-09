@@ -83,12 +83,12 @@ function add_custom_shipping_fee($cart) {
 
     // Add the extra fee to the cart
     if ($total_extra_fee > 0) {
-        $cart->add_fee(__('Extra Shipping Fee', 'your-plugin-textdomain'), $total_extra_fee);
+        $cart->add_fee(__('Processing and Handling', 'your-plugin-textdomain'), $total_extra_fee);
     }
       // Add $10 extra fee if PayPal is the selected payment method
       if (is_paypal_payment_method_selected()) {
         $paypal_fee = 10;
-        $cart->add_fee(__('Processing and Handling', 'your-plugin-textdomain'), $paypal_fee);
+        $cart->add_fee(__('PayPal Fee', 'your-plugin-textdomain'), $paypal_fee);
     }
 }
 
