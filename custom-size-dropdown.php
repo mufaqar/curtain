@@ -48,7 +48,7 @@ add_filter( 'woocommerce_add_cart_item_data', 'update_price_before_adding_to_car
 
 /*Shipping Applied*/
 
-//add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fee', 10, 1);
+add_action('woocommerce_cart_calculate_fees', 'add_custom_shipping_fee', 10, 1);
 
 function add_custom_shipping_fee($cart) {
     // Ensure we're not affecting the backend or admin areas
