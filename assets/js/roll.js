@@ -42,12 +42,12 @@ jQuery(document).ready(function ($) {
           value: 10.9,
         },
         size_custom: {
-          price: 1.55, // Example price per sq ft for custom size
+          price: 0.136572, 
           label: 'Custom Size (price x total sq ft)',
         },
       },
       ele: 17.0,
-      wt: 0.1552086
+      wt: 1.399863
     },
     '22_oz': {
       roll_pr: {
