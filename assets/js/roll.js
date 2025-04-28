@@ -123,6 +123,10 @@ jQuery(document).ready(function ($) {
 
     
     var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+
+   
+
+
  
 
     var selectedWidth =   prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;     
@@ -156,6 +160,9 @@ jQuery(document).ready(function ($) {
     
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
     $('#cal_weight').val(TotalWeight.toFixed(2));
+
+
+  
 
  
    
@@ -199,6 +206,9 @@ jQuery(document).ready(function ($) {
       $('#area_display').text( Math.ceil(Total_Box));
       $('#size_display').text( selectedWidth * selectedHeight);
       $('#cal_weight').val(TotalWeight.toFixed(2));
+
+
+     
     
    
     }
@@ -206,9 +216,11 @@ jQuery(document).ready(function ($) {
     $('#cal_width').val(selectedWidth);
     $('#cal_length').val(selectedHeight);
 
-    console.log(" Weight:", TotalWeight)
-    console.log(" Width:", selectedWidth);
-    console.log(" Length:", selectedHeight);
+    // console.log(" Weight:", TotalWeight)
+    // console.log(" Width:", selectedWidth);
+    // console.log(" Length:", selectedHeight);
+
+    console.log("totalPrice",selectedPricePerSqFt);
 
 
     // Check if the electric system is selected and add the price
