@@ -3,7 +3,7 @@
 Plugin Name: Curtain Options
 Description: Custom curtain options to WooCommerce products.
 Version: 3.0.1
-Author: Mufaqar
+Author: PowerUp
 */
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
