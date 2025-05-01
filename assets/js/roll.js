@@ -139,7 +139,7 @@ jQuery(document).ready(function ($) {
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalHeightFeet * selectedPricePerSqFt;
 
-    console.log("TP",totalPrice);
+
 
 
     var sqWeightValue = prices[selectedMaterial]?.wt || 0;
