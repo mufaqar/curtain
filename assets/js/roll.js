@@ -119,28 +119,14 @@ jQuery(document).ready(function ($) {
   function updatePrice() {
     var selectedMaterial = $('#roll_material').val();
     var selectedSize = $('#roll_size').val();
-
-
-    
     var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
-
-   
-
-
- 
-
     var selectedWidth =   prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;     
+    var selectedHeight = convertHeightToFeet();
 
-
-      selectedHeight = convertHeightToFeet();
-
-      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
-
-      var cubic_Area_Trap = sq_inch_totalArea* .03;
-
-      var cubic_Area_Box = 5880;
-  
-      var Total_Box = cubic_Area_Trap/cubic_Area_Box;
+    var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
+    var cubic_Area_Trap = sq_inch_totalArea* .03;
+    var cubic_Area_Box = 5880;
+    var Total_Box = cubic_Area_Trap/cubic_Area_Box;
 
     
 
@@ -198,6 +184,8 @@ jQuery(document).ready(function ($) {
     
 
       let TotalWeight = sqWeightValue * totalArea;
+      console.log(" TotalWeight 123:", TotalWeight)
+  
 
 
 
@@ -216,11 +204,7 @@ jQuery(document).ready(function ($) {
     $('#cal_width').val(selectedWidth);
     $('#cal_length').val(selectedHeight);
 
-    // console.log(" Weight:", TotalWeight)
-    // console.log(" Width:", selectedWidth);
-    // console.log(" Length:", selectedHeight);
-
-    console.log("totalPrice",selectedPricePerSqFt);
+   
 
 
     // Check if the electric system is selected and add the price
@@ -231,8 +215,8 @@ jQuery(document).ready(function ($) {
     }
 
     // Update the price display
-    $('#price_display').text('$' + totalPrice.toFixed(2));
-    $('#cal_price').val(totalPrice.toFixed(2));
+    $('#price_display').text( totalPrice.toFixed(2));
+    $('#cal_price').val('$' +totalPrice.toFixed(2));
    
 
   }
