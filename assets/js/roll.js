@@ -78,7 +78,7 @@ jQuery(document).ready(function ($) {
       wt: 0.1785714
     },
   };
-$('.woocommerce-Price-amount').hide();
+  $('.woocommerce-Price-amount').hide();
 
   function updateTarpColors() {
     var selectedMaterial = $('#roll_material').val();
