@@ -46,7 +46,7 @@ function custom_curtain_options_add_to_product() {
 
         // Price Display price_display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
-                <strong>Base Price: </strong><span id="price_display">$0.00</span>
+                <strong>Base Price: $ </strong><span id="price_display">0.00</span>
               </div>';
         
                    // weight_display
