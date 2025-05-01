@@ -37,16 +37,16 @@ function custom_curtain_options_add_to_product() {
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
          // Hidden field to hold the base price
-         echo '<input type="text" id="base_price" value="' . esc_attr($base_price) . '">';
-         echo '<input type="text" name="cal_price" id="cal_price" value="">';
-         echo '<input type="text" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
-         echo '<input type="text" id="cal_width" name="cal_width" value="">';
-         echo '<input type="text" id="cal_length" name="cal_length" value="">';
+         echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
+         echo '<input type="hidden" name="cal_price" id="cal_price" value="">';
+         echo '<input type="hidden" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
+         echo '<input type="hidden" id="cal_width" name="cal_width" value="">';
+         echo '<input type="hidden" id="cal_length" name="cal_length" value="">';
        
 
         // Price Display price_display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
-                <strong>Base Price: </strong><span id="weight_display">$0.00</span>
+                <strong>Base Price: </strong><span id="price_display">$0.00</span>
               </div>';
         
                    // weight_display
@@ -56,7 +56,7 @@ function custom_curtain_options_add_to_product() {
 
                // weight_display weight_display
         echo '<div id="" style="margin-top: 10px;">
-                    <strong>Weight: </strong><span id="price_display">0</span> lb  
+                    <strong>Weight: </strong><span id="weight_display">0</span> lb  
                 </div>';
 
                      // area_display

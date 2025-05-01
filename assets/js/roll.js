@@ -78,6 +78,7 @@ jQuery(document).ready(function ($) {
       wt: 0.1785714
     },
   };
+$('.woocommerce-Price-amount').hide();
 
   function updateTarpColors() {
     var selectedMaterial = $('#roll_material').val();
@@ -138,6 +139,8 @@ jQuery(document).ready(function ($) {
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalHeightFeet * selectedPricePerSqFt;
 
+    console.log("TP",totalPrice);
+
 
     var sqWeightValue = prices[selectedMaterial]?.wt || 0;
  
@@ -162,29 +165,29 @@ jQuery(document).ready(function ($) {
     // Calculate custom width if the size is custom
     if (selectedSize === 'size_custom') {
      
-      selectedWidth = convertWidthToFeet();
-     
+      selectedWidth = convertWidthToFeet();     
       selectedHeight = convertHeightToFeet();
 
-      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
-     
+      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);     
       var totalArea =  selectedWidth * selectedHeight ;
-
       var cubic_Area_Trap = sq_inch_totalArea* .03;
-
       var cubic_Area_Box = 5880;
-
       var Total_Box = cubic_Area_Trap/cubic_Area_Box;    
 
 
       var totalPrice = totalArea * selectedPricePerSqFt;
+      var totalPrice = totalArea * 1.55;
 
+      console.log("TP C",totalPrice);
+   
     
       var sqWeightValue = prices[selectedMaterial]?.wt || 0;
     
 
-      let TotalWeight = sqWeightValue * totalArea;
-      console.log(" TotalWeight 123:", TotalWeight)
+      let TotalWeight = selectedPricePerSqFt * totalArea;
+    
+
+    
   
 
 
@@ -214,8 +217,10 @@ jQuery(document).ready(function ($) {
       totalPrice += electricSystemPrice;
     }
 
+
+    console.log("TP D",totalPrice);
     // Update the price display
-    $('#price_display').text( totalPrice.toFixed(2));
+    $('#price_display').text( totalPrice.toFixed(2) );
     $('#cal_price').val('$' +totalPrice.toFixed(2));
    
 
