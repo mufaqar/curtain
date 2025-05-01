@@ -221,7 +221,9 @@ jQuery(document).ready(function ($) {
     console.log("TP D",totalPrice);
     // Update the price display
     $('#price_display').text( totalPrice.toFixed(2) );
-    $('#cal_price').val('$' +totalPrice.toFixed(2));
+    $('#cal_price').val(totalPrice.toFixed(2));
+
+ 
    
 
   }

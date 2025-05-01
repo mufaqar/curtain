@@ -108,6 +108,8 @@ function custom_update_product_dimensions_and_weight_ups($cart) {
 
     foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
 
+        $product_id = $cart_item['product_id']; // Define the product ID first
+
          // Check if 'enable_custom_curtain_options' is enabled for this product
          $is_custom_enabled = get_post_meta($product_id, 'enable_custom_curtain_options', true) === 'yes';
 
@@ -127,10 +129,9 @@ function custom_update_product_dimensions_and_weight_ups($cart) {
         $custom_weight = isset($cart_item['cal_weight']) ? floatval($cart_item['cal_weight']) : $cart_item['data']->get_weight();
         $custom_length = isset($cart_item['cal_length']) ? floatval($cart_item['cal_length']) : $cart_item['data']->get_length();
         $custom_width  = isset($cart_item['cal_width'])  ? floatval($cart_item['cal_width'])  : $cart_item['data']->get_width();
-     
 
         // Apply to the product object
-        $cart_item['data']->set_price( $cart_item['custom_price'] );
+        $cart_item['data']->set_price( $cart_item['cal_price'] );
         $cart_item['data']->set_weight($custom_weight);
         $cart_item['data']->set_length($custom_length);
         $cart_item['data']->set_width($custom_width);

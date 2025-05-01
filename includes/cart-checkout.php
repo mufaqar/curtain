@@ -7,7 +7,7 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
     if ($product_type === 'livestock_curtains' || $product_type === 'rollover_tarps') {
 
         if (isset($_POST['cal_price'])) {
-            $cart_item_data['calculated_price'] = sanitize_text_field($_POST['cal_price']);
+            $cart_item_data['cal_price'] = sanitize_text_field($_POST['cal_price']);
         }
         // Common fields for both product types
         if (isset($_POST['roll_material'])) {
@@ -55,7 +55,7 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
         // Save custom price if provided
         if (isset($_POST['cal_price'])) {
             $custom_price = floatval($_POST['cal_price']);
-            $cart_item_data['custom_price'] = $custom_price;
+            $cart_item_data['cal_price'] = $custom_price;
         }
 
         // Save custom weight to the cart item data
@@ -154,10 +154,10 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
             'value' => wc_clean($cart_item['webbing_reinforcement']),
         );
     }
-    if (isset($cart_item['calculated_price'])) {
+    if (isset($cart_item['cal_price'])) {
         $item_data[] = array(
             'name' => __('Calculated Price', 'custom-curtain-options'),
-            'value' => wc_price($cart_item['calculated_price']),
+            'value' => wc_price($cart_item['cal_price']),
         );
     }
 
