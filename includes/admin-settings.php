@@ -14,9 +14,9 @@ function custom_curtain_options_product_custom_fields() {
         'size_2' => '6\' with 1 3" Hem (69") or 4" Hem',
         'size_3' => '9\' with 1 3" Hem (105") or 4" Hem',
         'size_4' => '12\' with 1 3" Hem (141") or 4" Hem (140")',
-        'size_5' => '10\'3" width (96" trailer width)',
-        'size_6' => '10\'6" width (99" trailer width)',
-        'size_7' => '10\'9" width (102" trailer width)',
+        'size_5' => 'Trap Size: 10\'3" x 10',
+        'size_6' => 'Trap Size: 10\'6" x 10',
+        'size_7' => 'Trap Size: 10\'9" x 10',
         'custom' => 'Custom Size (price x total sq ft)',
     );
 

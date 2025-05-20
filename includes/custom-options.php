@@ -88,6 +88,7 @@ function custom_curtain_options_add_to_product() {
                     <label for="roll_size">Linear Ft. Width:</label>
                     <select id="roll_size" name="roll_size">';
                     foreach ($rollover_size_options as $key => $label) {
+                    
                         echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
                     }
                     echo '<option value="size_custom">Custom Size (price x total sq ft)</option>';

@@ -26,19 +26,19 @@ jQuery(document).ready(function ($) {
         size_96: {
           price: 13.95,
           width: 10.25,
-          label: '10\'3" width (96" trailer width)',
+          label: 'Trap Size: 10\'3" x 10',
           value: 10.3,
         },
         size_99: {
           price: 14.5,
           width: 10.5,
-          label: '10\'6" width (99" trailer width)',
+          label: 'Trap Size: 10\'6" x 10',
           value: 10.6,
         },
         size_102: {
           price: 14.65,
           width: 10.75,
-          label: '10\'9" width (102" trailer width)',
+          label: 'Trap Size: 10\'9" x 10',
           value: 10.9,
         },
         size_custom: {
@@ -54,19 +54,19 @@ jQuery(document).ready(function ($) {
         size_96: {
           price: 16.75,
           width: 10.25,
-          label: '10\'3" width (96" trailer width)',
+          label: 'Trap Size: 10\'3" x 10',
           value: 10.3,
         },
         size_99: {
           price: 17.25,
           width: 10.5,
-          label: '10\'6" width (99" trailer width)',
+          label: 'Trap Size: 10\'6" x 10',
           value: 10.6,
         },
         size_102: {
           price: 17.5,
           width: 10.75,
-          label: '10\'9" width (102" trailer width)',
+          label: 'Trap Size: 10\'9" x 10',
           value: 10.9,
         },
         size_custom: {

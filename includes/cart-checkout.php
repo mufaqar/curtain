@@ -92,7 +92,7 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
     if (isset($cart_item['roll_material'])) {
         $item_data[] = array(
-            'key' => __('Roll Material', 'custom-curtain-options'),
+            'key' => __('Material Strength', 'custom-curtain-options'),
             'value' => wc_clean($cart_item['roll_material']),
         );
     }
@@ -104,7 +104,7 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
     }
     if (isset($cart_item['roll_size'])) {
         $item_data[] = array(
-            'key' => __('Roll Size', 'custom-curtain-options'),
+            'key' => __('Trailer Width', 'custom-curtain-options'),
             'value' => wc_clean($cart_item['roll_size']),
         );
         if ($cart_item['roll_size'] == 'size_custom') {
@@ -178,13 +178,13 @@ function custom_curtain_options_save_custom_options_to_order($item, $cart_item_k
         $item->add_meta_data('Custom Curtain Price', wc_price($values['calculated_price']));
     }
     if (isset($values['roll_material'])) {
-        $item->add_meta_data(__('Roll Material', 'custom-curtain-options'), $values['roll_material']);
+        $item->add_meta_data(__('Material Strength', 'custom-curtain-options'), $values['roll_material']);
     }
     if (isset($values['curtain_material'])) {
         $item->add_meta_data(__('Curtain Material', 'custom-curtain-options'), $values['curtain_material']);
     }
     if (isset($values['roll_size'])) {
-        $item->add_meta_data(__('Roll Size', 'custom-curtain-options'), $values['roll_size']);
+        $item->add_meta_data(__('Trailer Width', 'custom-curtain-options'), $values['roll_size']);
         if ($values['roll_size'] == 'size_custom') {
             $item->add_meta_data(__('Custom Width (Feet)', 'custom-curtain-options'), $values['custom_width_feet'] . ' ft ' . $values['custom_width_inches'] . ' in');
             $item->add_meta_data(__('Custom Height (Feet)', 'custom-curtain-options'), $values['custom_height_feet'] . ' ft ' . $values['custom_height_inches'] . ' in');
