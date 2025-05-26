@@ -26,19 +26,19 @@ jQuery(document).ready(function ($) {
         size_96: {
           price: 13.95,
           width: 10.25,
-          label: 'Trap Size: 10\'3" x 10',
+          label: 'Tarp Size: 10\'3" x 10',
           value: 10.3,
         },
         size_99: {
           price: 14.5,
           width: 10.5,
-          label: 'Trap Size: 10\'6" x 10',
+          label: 'Tarp Size: 10\'6" x 10',
           value: 10.6,
         },
         size_102: {
           price: 14.65,
           width: 10.75,
-          label: 'Trap Size: 10\'9" x 10',
+          label: 'Tarp Size: 10\'9" x 10',
           value: 10.9,
         },
         size_custom: {
@@ -54,19 +54,19 @@ jQuery(document).ready(function ($) {
         size_96: {
           price: 16.75,
           width: 10.25,
-          label: 'Trap Size: 10\'3" x 10',
+          label: 'Tarp Size: 10\'3" x 10',
           value: 10.3,
         },
         size_99: {
           price: 17.25,
           width: 10.5,
-          label: 'Trap Size: 10\'6" x 10',
+          label: 'Tarp Size: 10\'6" x 10',
           value: 10.6,
         },
         size_102: {
           price: 17.5,
           width: 10.75,
-          label: 'Trap Size: 10\'9" x 10',
+          label: 'Tarp Size: 10\'9" x 10',
           value: 10.9,
         },
         size_custom: {
@@ -125,9 +125,9 @@ jQuery(document).ready(function ($) {
     var selectedHeight = convertHeightToFeet();
 
     var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
-    var cubic_Area_Trap = sq_inch_totalArea* .03;
+    var cubic_Area_Tarp = sq_inch_totalArea* .03;
     var cubic_Area_Box = 5880;
-    var Total_Box = cubic_Area_Trap/cubic_Area_Box;
+    var Total_Box = cubic_Area_Tarp/cubic_Area_Box;
 
     
 
@@ -170,9 +170,9 @@ jQuery(document).ready(function ($) {
 
       var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);     
       var totalArea =  selectedWidth * selectedHeight ;
-      var cubic_Area_Trap = sq_inch_totalArea* .03;
+      var cubic_Area_Tarp = sq_inch_totalArea* .03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Trap/cubic_Area_Box;    
+      var Total_Box = cubic_Area_Tarp/cubic_Area_Box;    
 
 
       var totalPrice = totalArea * selectedPricePerSqFt;

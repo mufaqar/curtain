@@ -45,9 +45,9 @@ jQuery(document).ready(function ($) {
 
       var sq_inch_totalArea = materialWidth * 12 * (TFH * 12);
 
-      var cubic_Area_Trap = sq_inch_totalArea * 0.03;
+      var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Trap / cubic_Area_Box;
+      var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
 
       $('#area_display').text(Math.ceil(Total_Box));
 
@@ -75,9 +75,9 @@ jQuery(document).ready(function ($) {
 
       var sq_inch_totalArea = TFW * 12 * (TFH * 12);
 
-      var cubic_Area_Trap = sq_inch_totalArea * 0.03;
+      var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Trap / cubic_Area_Box;
+      var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
 
       $('#area_display').text(Math.ceil(Total_Box));
 
