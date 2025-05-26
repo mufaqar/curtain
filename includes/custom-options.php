@@ -42,6 +42,8 @@ function custom_curtain_options_add_to_product() {
          echo '<input type="hidden" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
          echo '<input type="hidden" id="cal_width" name="cal_width" value="">';
          echo '<input type="hidden" id="cal_length" name="cal_length" value="">';
+          echo '<input type="hidden" id="selectedMaterial_Label" name="selectedMaterial_Label" value="">';
+         echo '<input type="hidden" id="selectedSize_Label" name="selectedSize_Label" value="">';
        
 
         // Price Display price_display

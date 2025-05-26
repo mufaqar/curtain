@@ -119,7 +119,15 @@ jQuery(document).ready(function ($) {
 
   function updatePrice() {
     var selectedMaterial = $('#roll_material').val();
+  
     var selectedSize = $('#roll_size').val();
+
+    var selectedMaterial_Label = $('#roll_material option:selected').text();
+    var selectedSize_Label = $('#roll_size option:selected').text();
+
+    
+     
+
     var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
     var selectedWidth =   prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;     
     var selectedHeight = convertHeightToFeet();
@@ -150,12 +158,6 @@ jQuery(document).ready(function ($) {
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
     $('#cal_weight').val(TotalWeight.toFixed(2));
 
-
-  
-
- 
-   
-
     $('#weight_display').text( TotalWeight);
     $('#area_display').text( Math.ceil(Total_Box));
     $('#size_display').text( selectedWidth * selectedHeight);
@@ -178,7 +180,7 @@ jQuery(document).ready(function ($) {
       var totalPrice = totalArea * selectedPricePerSqFt;
       var totalPrice = totalArea * 1.55;
 
-      console.log("TP C",totalPrice);
+   
    
     
       var sqWeightValue = prices[selectedMaterial]?.wt || 0;
@@ -204,8 +206,16 @@ jQuery(document).ready(function ($) {
    
     }
 
+
+
     $('#cal_width').val(selectedWidth);
     $('#cal_length').val(selectedHeight);
+
+    
+     $('#selectedMaterial_Label').val( selectedMaterial_Label);
+     $('#selectedSize_Label').val( selectedSize_Label);
+
+
 
    
 

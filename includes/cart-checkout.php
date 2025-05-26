@@ -16,6 +16,13 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
         if (isset($_POST['curtain_material'])) {
             $cart_item_data['curtain_material'] = sanitize_text_field($_POST['curtain_material']);
         }
+        if (isset($_POST['selectedMaterial_Label'])) {
+            $cart_item_data['selectedMaterial_Label'] = sanitize_text_field($_POST['selectedMaterial_Label']);
+        }
+
+        if (isset($_POST['selectedSize_Label'])) {
+            $cart_item_data['selectedSize_Label'] = sanitize_text_field($_POST['selectedSize_Label']);
+        }
 
         // Size fields
         if (isset($_POST['roll_size'])) {
@@ -90,10 +97,17 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
 
 // Display custom options in cart and checkout
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
-    if (isset($cart_item['roll_material'])) {
+   
+    if (isset($cart_item['selectedMaterial_Label'])) {
         $item_data[] = array(
             'key' => __('Material Strength', 'custom-curtain-options'),
-            'value' => wc_clean($cart_item['roll_material']),
+            'value' => wc_clean($cart_item['selectedMaterial_Label']),
+        );
+    }
+    if (isset($cart_item['selectedSize_Label'])) {
+        $item_data[] = array(
+            'key' => __('Material Strength', 'custom-curtain-options'),
+            'value' =>  wc_clean(str_replace('\\', '', $cart_item['selectedSize_Label'])),
         );
     }
     if (isset($cart_item['curtain_material'])) {
