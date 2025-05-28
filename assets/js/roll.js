@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
-             weight:1.399863
+          weight:1.399863
         },
         size_99: {
           price: 17.25,
@@ -157,6 +157,7 @@ jQuery(document).ready(function ($) {
 
 
     var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
+     var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
     console.log("sqWeightValue",sqWeightValue);
  
     let WH = selectedWidth * selectedHeight;
@@ -221,6 +222,7 @@ jQuery(document).ready(function ($) {
     
      $('#selectedMaterial_Label').val( selectedMaterial_Label);
      $('#selectedSize_Label').val( selectedSize_Label);
+      $('#SizeValue').val( SizeValue);
 
 
 
@@ -235,8 +237,6 @@ jQuery(document).ready(function ($) {
     }
 
 
-    console.log("TP D",totalPrice);
-    // Update the price display
     $('#price_display').text( totalPrice.toFixed(2) );
     $('#cal_price').val(totalPrice.toFixed(2));
 

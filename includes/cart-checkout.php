@@ -23,6 +23,9 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
         if (isset($_POST['selectedSize_Label'])) {
             $cart_item_data['selectedSize_Label'] = sanitize_text_field($_POST['selectedSize_Label']);
         }
+        if (isset($_POST['SizeValue'])) {
+            $cart_item_data['SizeValue'] = sanitize_text_field($_POST['SizeValue']);
+        }
 
         // Size fields
         if (isset($_POST['roll_size'])) {
@@ -99,15 +102,22 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
    
     if (isset($cart_item['selectedMaterial_Label'])) {
+        $string = $cart_item['selectedSize_Label'];
+        $selectedSize = (int) filter_var($string, FILTER_SANITIZE_NUMBER_INT);
         $item_data[] = array(
-            'key' => __('Material Strength', 'custom-curtain-options'),
-            'value' => wc_clean($cart_item['selectedMaterial_Label']),
+            'key' => __('Trailer Width', 'custom-curtain-options'),
+            'value' => wc_clean($selectedSize.'"'),
         );
     }
-    if (isset($cart_item['selectedSize_Label']) && isset($cart_item['cal_length'])) {
+    if (isset($cart_item['selectedSize_Label']) && isset($cart_item['SizeValue'])) {
+                  $decimalFeet =   $cart_item['SizeValue'];
+            $feet = floor($decimalFeet);
+            $inches = round(($decimalFeet - $feet) * 12);
+            $size_value = "{$feet} feet {$inches} inches";
+        
     $item_data[] = array(
         'key'   => __('Tarp Size', 'custom-curtain-options'),
-        'value' => wc_clean(str_replace('\\', '', $cart_item['selectedSize_Label'])) . ' wide x ' . wc_clean($cart_item['cal_length']).' ft long',
+        'value' => wc_clean($size_value) . ' wide x ' . wc_clean($cart_item['cal_length']).' ft long',
     );
 }
     if (isset($cart_item['curtain_material'])) {
