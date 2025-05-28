@@ -100,6 +100,14 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
 
 // Display custom options in cart and checkout
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
+
+
+      if (isset($cart_item['roll_material'])) {
+        $item_data[] = array(
+            'key' => __('Tarp Strength', 'custom-curtain-options'),
+            'value' => wc_clean($cart_item['roll_material']),
+        );
+    }
    
     if (isset($cart_item['selectedMaterial_Label'])) {
         $string = $cart_item['selectedSize_Label'];
