@@ -118,9 +118,9 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
         );
     }
     if (isset($cart_item['selectedSize_Label']) && isset($cart_item['SizeValue'])) {
-                  $decimalFeet =   $cart_item['SizeValue'];
+            $decimalFeet =   $cart_item['SizeValue'];
             $feet = floor($decimalFeet);
-            $inches = round(($decimalFeet - $feet) * 12);
+            $inches = round(($decimalFeet - $feet) *  10);
             $size_value = "{$feet} feet {$inches} inches";
         
     $item_data[] = array(
