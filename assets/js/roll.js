@@ -64,9 +64,9 @@ jQuery(document).ready(function ($) {
         size_99: {
           price: 17.25,
           width: 10.5,
-            label: 'Trailer Width: 99"',
+          label: 'Trailer Width: 99"',
           value: 10.6,
-           weight:1.875
+          weight:1.875
         },
         size_102: {
           price: 17.5,
@@ -151,16 +151,18 @@ jQuery(document).ready(function ($) {
     // Calculate the total area (width * height)
     var totalArea =  totalHeightFeet;
     // Calculate the total price based on the area and price per square foot
-    var totalPrice = totalHeightFeet * selectedPricePerSqFt;
-
-
+   
 
 
     var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
      var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
+
+      let WH = selectedWidth * selectedHeight;
+     var totalPrice = WH * sqWeightValue;
     console.log("sqWeightValue",sqWeightValue);
+      console.log("totalPrice",totalPrice);
  
-    let WH = selectedWidth * selectedHeight;
+    
     let TotalWeight = sqWeightValue * WH;
     
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
