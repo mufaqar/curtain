@@ -1,95 +1,95 @@
 jQuery(document).ready(function ($) {
   var tarpColors = {
-    '18_oz': {
-      black: 'Black',
-      gray: 'Gray',
-      green: 'Green',
-      orange: 'Orange',
-      purple: 'Purple',
-      red: 'Red',
-      royal_blue: 'Royal Blue',
-      tan: 'Tan',
-      white: 'White',
-      yellow: 'Yellow',
+    "18_oz": {
+      black: "Black",
+      gray: "Gray",
+      green: "Green",
+      orange: "Orange",
+      purple: "Purple",
+      red: "Red",
+      royal_blue: "Royal Blue",
+      tan: "Tan",
+      white: "White",
+      yellow: "Yellow",
     },
-    '22_oz': {
-      black: 'Black',
-      blue: 'Blue',
-      red: 'Red',
-      white: 'White',
+    "22_oz": {
+      black: "Black",
+      blue: "Blue",
+      red: "Red",
+      white: "White",
     },
   };
 
   var prices = {
-    '18_oz': {
+    "18_oz": {
       roll_pr: {
         size_96: {
           price: 13.95,
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
-          weight:1.59
+          weight: 1.59,
         },
         size_99: {
           price: 14.5,
           width: 10.5,
           label: 'Trailer Width: 99"',
           value: 10.6,
-          weight:1.63
+          weight: 1.63,
         },
         size_102: {
           price: 14.65,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
-           weight:1.67
+          weight: 1.67,
         },
         size_custom: {
-          price: 0.136572, 
-          label: 'Custom Size: (price x total sq ft)',
+          price: 0.136572,
+          label: "Custom Size: (price x total sq ft)",
         },
       },
       ele: 17.0,
-      wt: 1.399863
+      wt: 1.399863,
     },
-    '22_oz': {
+    "22_oz": {
       roll_pr: {
         size_96: {
           price: 16.75,
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
-          weight:1.830357
+          weight: 1.830357,
         },
         size_99: {
           price: 17.25,
           width: 10.5,
           label: 'Trailer Width: 99"',
           value: 10.6,
-          weight:1.875
+          weight: 1.875,
         },
         size_102: {
           price: 17.5,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
-            weight:1.91196426
+          weight: 1.91196426,
         },
         size_custom: {
           price: 1.75,
-          label: 'Custom Size: (price x total sq ft)',
+          label: "Custom Size: (price x total sq ft)",
         },
       },
       ele: 17.0,
-      wt: 0.1785714
+      wt: 0.1785714,
     },
   };
-  $('.woocommerce-Price-amount').hide();
+  $(".woocommerce-Price-amount").hide();
 
   function updateTarpColors() {
-    var selectedMaterial = $('#roll_material').val();
+    var selectedMaterial = $("#roll_material").val();
     var colorOptions = tarpColors[selectedMaterial] || {};
-    var $tarpColorSelect = $('#tarp_color');
+    var $tarpColorSelect = $("#tarp_color");
     // Clear current color options
     $tarpColorSelect.empty();
 
@@ -100,9 +100,9 @@ jQuery(document).ready(function ($) {
   }
 
   function updateRollSizeOptions() {
-    var selectedMaterial = $('#roll_material').val();
+    var selectedMaterial = $("#roll_material").val();
     var sizeOptions = prices[selectedMaterial]?.roll_pr || {};
-    var $rollSizeSelect = $('#roll_size');
+    var $rollSizeSelect = $("#roll_size");
 
     // Clear current size options
     $rollSizeSelect.empty();
@@ -114,173 +114,133 @@ jQuery(document).ready(function ($) {
   }
 
   function updateCustomFields() {
-    var selectedSize = $('#roll_size').val();
+    var selectedSize = $("#roll_size").val();
 
-    if (selectedSize === 'size_custom') {
-      $('.roll_custom_width').show(); // Show custom width if size is custom
+    if (selectedSize === "size_custom") {
+      $(".roll_custom_width").show(); // Show custom width if size is custom
     } else {
-      $('.roll_custom_width').hide(); // Hide custom width otherwise
+      $(".roll_custom_width").hide(); // Hide custom width otherwise
     }
   }
 
   function updatePrice() {
-    var selectedMaterial = $('#roll_material').val();
-  
-    var selectedSize = $('#roll_size').val();
+    var selectedMaterial = $("#roll_material").val();
 
-    var selectedMaterial_Label = $('#roll_material option:selected').text();
-    var selectedSize_Label = $('#roll_size option:selected').text();
+    var selectedSize = $("#roll_size").val();
 
-    
-     
+    var selectedMaterial_Label = $("#roll_material option:selected").text();
+    var selectedSize_Label = $("#roll_size option:selected").text();
 
-    var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
-    var selectedWidth =   prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;     
+    var selectedPricePerSqFt =
+      prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+    var selectedWidth =
+      prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
     var selectedHeight = convertHeightToFeet();
 
-    var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
-    var cubic_Area_Tarp = sq_inch_totalArea* .03;
+    var sq_inch_totalArea = selectedWidth * 12 * (selectedHeight * 12);
+    var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
     var cubic_Area_Box = 5880;
-    var Total_Box = cubic_Area_Tarp/cubic_Area_Box;
-
-    
+    var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
 
     // Get the total height in feet
     var totalHeightFeet = convertHeightToFeet();
-    
+
     // Calculate the total area (width * height)
-    var totalArea =  totalHeightFeet;
-    // Calculate the total price based on the area and price per square foot
-   
+    var totalArea = totalHeightFeet;
 
+    var sqWeightValue =
+      prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
+    var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
 
-    var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
-     var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
+    let WH = selectedWidth * selectedHeight;
+    var totalPrice = WH * sqWeightValue;
+    console.log("sqWeightValue", sqWeightValue);
+    console.log("totalPrice", totalPrice);
 
-      let WH = selectedWidth * selectedHeight;
-     var totalPrice = WH * sqWeightValue;
-    console.log("sqWeightValue",sqWeightValue);
-      console.log("totalPrice",totalPrice);
- 
-    
     let TotalWeight = sqWeightValue * WH;
-    
-    $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
-    $('#cal_weight').val(TotalWeight.toFixed(2));
 
-    $('#weight_display').text( TotalWeight);
-    $('#area_display').text( Math.ceil(Total_Box));
-    $('#size_display').text( selectedWidth * selectedHeight);
+    $("#total_price_display").text("$" + totalPrice.toFixed(2));
+    $("#cal_weight").val(TotalWeight.toFixed(2));
 
-
+    $("#weight_display").text(TotalWeight);
+    $("#area_display").text(Math.ceil(Total_Box));
+    $("#size_display").text(selectedWidth * selectedHeight);
 
     // Calculate custom width if the size is custom
-    if (selectedSize === 'size_custom') {
-     
-      selectedWidth = convertWidthToFeet();     
+    if (selectedSize === "size_custom") {
+      selectedWidth = convertWidthToFeet();
       selectedHeight = convertHeightToFeet();
 
-      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);     
-      var totalArea =  selectedWidth * selectedHeight ;
-      var cubic_Area_Tarp = sq_inch_totalArea* .03;
+      var sq_inch_totalArea = selectedWidth * 12 * (selectedHeight * 12);
+      var totalArea = selectedWidth * selectedHeight;
+      var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Tarp/cubic_Area_Box;    
-
+      var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
 
       var totalPrice = totalArea * selectedPricePerSqFt;
       var totalPrice = totalArea * 1.55;
 
-   
-   
-    
       var sqWeightValue = prices[selectedMaterial]?.wt || 0;
-    
 
       let TotalWeight = selectedPricePerSqFt * totalArea;
-    
 
-    
-  
-
-
-
-
-      $('#weight_display').text( TotalWeight);
-      $('#area_display').text( Math.ceil(Total_Box));
-      $('#size_display').text( selectedWidth * selectedHeight);
-      $('#cal_weight').val(TotalWeight.toFixed(2));
-
-
-     
-    
-   
+      $("#weight_display").text(TotalWeight);
+      $("#area_display").text(Math.ceil(Total_Box));
+      $("#size_display").text(selectedWidth * selectedHeight);
+      $("#cal_weight").val(TotalWeight.toFixed(2));
     }
 
+    $("#cal_width").val(selectedWidth);
+    $("#cal_length").val(selectedHeight);
 
-
-    $('#cal_width').val(selectedWidth);
-    $('#cal_length').val(selectedHeight);
-
-    
-     $('#selectedMaterial_Label').val( selectedMaterial_Label);
-     $('#selectedSize_Label').val( selectedSize_Label);
-      $('#SizeValue').val( SizeValue);
-
-
-
-   
-
+    $("#selectedMaterial_Label").val(selectedMaterial_Label);
+    $("#selectedSize_Label").val(selectedSize_Label);
+    $("#SizeValue").val(SizeValue);
 
     // Check if the electric system is selected and add the price
-    var electricSystem = $('#electric_system').val();
-    if (electricSystem === 'yes') {
+    var electricSystem = $("#electric_system").val();
+    if (electricSystem === "yes") {
       var electricSystemPrice = prices[selectedMaterial]?.ele || 0;
       totalPrice += electricSystemPrice;
     }
 
-
-    $('#price_display').text( totalPrice.toFixed(2) );
-    $('#cal_price').val(totalPrice.toFixed(2));
-
- 
-   
-
+    $("#price_display").text(totalPrice.toFixed(2));
+    $("#cal_price").val(totalPrice.toFixed(2));
   }
 
   function convertWidthToFeet() {
-    var feet_w = parseFloat($('#custom_width_feet').val()) || 0;
-    var inches_w = parseFloat($('#custom_width_inches').val()) || 0;
+    var feet_w = parseFloat($("#custom_width_feet").val()) || 0;
+    var inches_w = parseFloat($("#custom_width_inches").val()) || 0;
     var totalFeet_Width = feet_w + inches_w / 12;
     return totalFeet_Width;
   }
 
   function convertHeightToFeet() {
-    var feet_h = parseFloat($('#custom_height_feet').val()) || 0;
-    var inches_h = parseFloat($('#custom_height_inches').val()) || 0;
+    var feet_h = parseFloat($("#custom_height_feet").val()) || 0;
+    var inches_h = parseFloat($("#custom_height_inches").val()) || 0;
     var totalFeet_Length = feet_h + inches_h / 12;
     return totalFeet_Length;
   }
 
   // Trigger updates when the material, size, height, or electric system changes
-  $('#roll_material').on('change', function () {
+  $("#roll_material").on("change", function () {
     updateTarpColors();
     updateRollSizeOptions();
     updatePrice(); // Update price when material changes
   });
 
-  $('#roll_size').on('change', function () {
+  $("#roll_size").on("change", function () {
     updateCustomFields();
     updatePrice(); // Update price when size changes
   });
 
-  $('#custom_width_feet, #custom_width_inches, #custom_height_feet, #custom_height_inches').on(
-    'input change',
-    function () {
-      updatePrice(); // Update price when custom width or height changes
-    }
-  );
+  $(
+    "#custom_width_feet, #custom_width_inches, #custom_height_feet, #custom_height_inches"
+  ).on("input change", function () {
+    updatePrice(); // Update price when custom width or height changes
+  });
 
-  $('#electric_system').on('change', function () {
+  $("#electric_system").on("change", function () {
     updatePrice(); // Update price when electric system option changes
   });
 
