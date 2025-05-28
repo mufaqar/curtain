@@ -9,17 +9,6 @@ function custom_curtain_options_product_custom_fields() {
         '22_oz' => '22oz'
     );
 
-    $predefined_size_options = array(
-        'size_1' => '5\' with 1 3" Hem (58") or 4" Hem',
-        'size_2' => '6\' with 1 3" Hem (69") or 4" Hem',
-        'size_3' => '9\' with 1 3" Hem (105") or 4" Hem',
-        'size_4' => '12\' with 1 3" Hem (141") or 4" Hem (140")',
-        'size_5' => 'Tarp Size: 10\'3" x 10',
-        'size_6' => 'Tarp Size: 10\'6" x 10',
-        'size_7' => 'Tarp Size: 10\'9" x 10',
-        'custom' => 'Custom Size (price x total sq ft)',
-    );
-
     $curtain_material = get_post_meta($product_id, '_curtain_material', true) ?: array();
     $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
     $curtain_custom_width = get_post_meta($product_id, '_curtain_custom_width', true);
