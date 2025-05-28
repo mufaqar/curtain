@@ -107,7 +107,7 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
     if (isset($cart_item['selectedSize_Label']) && isset($cart_item['cal_length'])) {
     $item_data[] = array(
         'key'   => __('Tarp Size', 'custom-curtain-options'),
-        'value' => wc_clean(str_replace('\\', '', $cart_item['selectedSize_Label'])) . ' x ' . wc_clean($cart_item['cal_length']).' ft long',
+        'value' => wc_clean(str_replace('\\', '', $cart_item['selectedSize_Label'])) . ' wide x ' . wc_clean($cart_item['cal_length']).' ft long',
     );
 }
     if (isset($cart_item['curtain_material'])) {
