@@ -28,21 +28,21 @@ jQuery(document).ready(function ($) {
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
-          weight:1.399863
+          weight:1.59
         },
         size_99: {
           price: 14.5,
           width: 10.5,
           label: 'Trailer Width: 99"',
           value: 10.6,
-          weight:1.434006
+          weight:1.63
         },
         size_102: {
           price: 14.65,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
-           weight:1.468149
+           weight:1.67
         },
         size_custom: {
           price: 0.136572, 
@@ -59,21 +59,21 @@ jQuery(document).ready(function ($) {
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
-          weight:1.399863
+          weight:1.830357
         },
         size_99: {
           price: 17.25,
           width: 10.5,
             label: 'Trailer Width: 99"',
           value: 10.6,
-           weight:1.434006
+           weight:1.875
         },
         size_102: {
           price: 17.5,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
-            weight:1.468149
+            weight:1.91196426
         },
         size_custom: {
           price: 1.75,
