@@ -28,18 +28,21 @@ jQuery(document).ready(function ($) {
           width: 10.25,
           label: 'Trailer Width: 96"',
           value: 10.3,
+          weight:1.399863
         },
         size_99: {
           price: 14.5,
           width: 10.5,
           label: 'Trailer Width: 99"',
           value: 10.6,
+          weight:1.434006
         },
         size_102: {
           price: 14.65,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
+           weight:1.468149
         },
         size_custom: {
           price: 0.136572, 
@@ -54,20 +57,23 @@ jQuery(document).ready(function ($) {
         size_96: {
           price: 16.75,
           width: 10.25,
-               label: 'Trailer Width: 96"',
+          label: 'Trailer Width: 96"',
           value: 10.3,
+             weight:1.399863
         },
         size_99: {
           price: 17.25,
           width: 10.5,
             label: 'Trailer Width: 99"',
           value: 10.6,
+           weight:1.434006
         },
         size_102: {
           price: 17.5,
           width: 10.75,
           label: 'Trailer Width: 102"',
           value: 10.9,
+            weight:1.468149
         },
         size_custom: {
           price: 1.75,
@@ -150,7 +156,8 @@ jQuery(document).ready(function ($) {
 
 
 
-    var sqWeightValue = prices[selectedMaterial]?.wt || 0;
+    var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
+    console.log("sqWeightValue",sqWeightValue);
  
     let WH = selectedWidth * selectedHeight;
     let TotalWeight = sqWeightValue * WH;
