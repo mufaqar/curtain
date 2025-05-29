@@ -125,7 +125,6 @@ jQuery(document).ready(function ($) {
 
   function updatePrice() {
     var selectedMaterial = $("#roll_material").val();
-
     var selectedSize = $("#roll_size").val();
 
     var selectedMaterial_Label = $("#roll_material option:selected").text();
@@ -144,7 +143,6 @@ jQuery(document).ready(function ($) {
 
     // Get the total height in feet
     var totalHeightFeet = convertHeightToFeet();
-
     // Calculate the total area (width * height)
     var totalArea = totalHeightFeet;
 
