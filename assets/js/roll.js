@@ -152,8 +152,8 @@ jQuery(document).ready(function ($) {
 
     let WH = selectedWidth * selectedHeight;
     var totalPrice = WH * sqWeightValue;
-    console.log("sqWeightValue", sqWeightValue);
-    console.log("totalPrice", totalPrice);
+    //console.log("sqWeightValue", sqWeightValue);
+    //console.log("totalPrice", totalPrice);
 
     let TotalWeight = sqWeightValue * WH;
 
