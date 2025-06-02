@@ -140,7 +140,6 @@ jQuery(document).ready(function ($) {
     var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
     var cubic_Area_Box = 5880;
     var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
-
     // Get the total height in feet
     var totalHeightFeet = convertHeightToFeet();
     // Calculate the total area (width * height)
