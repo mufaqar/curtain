@@ -144,8 +144,10 @@ jQuery(document).ready(function ($) {
     var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
     var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
 
-    let WH = selectedWidth * selectedHeight;
-    var totalPrice = selectedPricePerSqFt * selectedWidth;
+    let WH = (selectedWidth * selectedHeight)/10;
+
+    console.log("WH",WH);
+    var totalPrice = selectedPricePerSqFt * WH;
 
     let TotalWeight = parseFloat((sqWeightValue * selectedWidth).toFixed(2));
  
@@ -156,6 +158,13 @@ jQuery(document).ready(function ($) {
     $("#weight_display").text(TotalWeight);
     $("#area_display").text(Math.ceil(Total_Box));
     $("#size_display").text(selectedWidth * selectedHeight);
+
+
+       console.log("🚀 ~ totalPrice:", totalPrice)
+        console.log("🚀 ~ selectedWidth:", selectedWidth)
+      console.log("🚀 ~ selectedHeight", selectedHeight)
+      console.log("🚀 ~ TotalWeight", TotalWeight)
+
 
     // Calculate custom width if the size is custom
     if (selectedSize === "size_custom") {
@@ -182,12 +191,7 @@ jQuery(document).ready(function ($) {
      
 
       let TotalWeight = (selectedWidth * selectedHeight)*sqWeightValue;
-         console.log("🚀 ~ totalPrice:", totalPrice)
-        console.log("🚀 ~ selectedWidth:", selectedWidth)
-      console.log("🚀 ~ selectedHeight", selectedHeight)
-      console.log("🚀 ~ TotalWeight", TotalWeight)
-      console.log("🚀 ~ TotalWeight", TotalWeight)
-
+      
       
 
       $("#weight_display").text(TotalWeight);
