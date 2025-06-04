@@ -90,10 +90,7 @@ jQuery(document).ready(function ($) {
     var selectedMaterial = $("#roll_material").val();
     var colorOptions = tarpColors[selectedMaterial] || {};
     var $tarpColorSelect = $("#tarp_color");
-    // Clear current color options
     $tarpColorSelect.empty();
-
-    // Populate new options based on the selected material
     $.each(colorOptions, function (key, value) {
       $tarpColorSelect.append(new Option(value, key));
     });
@@ -115,7 +112,6 @@ jQuery(document).ready(function ($) {
 
   function updateCustomFields() {
     var selectedSize = $("#roll_size").val();
-
     if (selectedSize === "size_custom") {
       $(".roll_custom_width").show(); // Show custom width if size is custom
     } else {
@@ -130,10 +126,8 @@ jQuery(document).ready(function ($) {
     var selectedMaterial_Label = $("#roll_material option:selected").text();
     var selectedSize_Label = $("#roll_size option:selected").text();
 
-    var selectedPricePerSqFt =
-      prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
-    var selectedWidth =
-      prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
+    var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+    var selectedWidth =    prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
     var selectedHeight = convertHeightToFeet();
 
     var sq_inch_totalArea = selectedWidth * 12 * (selectedHeight * 12);
@@ -145,16 +139,14 @@ jQuery(document).ready(function ($) {
     // Calculate the total area (width * height)
     var totalArea = totalHeightFeet;
 
-    var sqWeightValue =
-      prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
+    var sqWeightValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.weight || 0;
     var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
 
     let WH = selectedWidth * selectedHeight;
-    var totalPrice = WH * sqWeightValue;
-    //console.log("sqWeightValue", sqWeightValue);
-    //console.log("totalPrice", totalPrice);
+    var totalPrice = selectedPricePerSqFt * selectedWidth;
 
-    let TotalWeight = sqWeightValue * WH;
+    let TotalWeight = parseFloat((sqWeightValue * selectedWidth).toFixed(2));
+ 
 
     $("#total_price_display").text("$" + totalPrice.toFixed(2));
     $("#cal_weight").val(TotalWeight.toFixed(2));
@@ -193,6 +185,8 @@ jQuery(document).ready(function ($) {
     $("#selectedMaterial_Label").val(selectedMaterial_Label);
     $("#selectedSize_Label").val(selectedSize_Label);
     $("#SizeValue").val(SizeValue);
+
+    //console.log("🚀 ~ updatePrice ~ TotalWeight:", TotalWeight)
 
     // Check if the electric system is selected and add the price
     var electricSystem = $("#electric_system").val();
@@ -246,3 +240,5 @@ jQuery(document).ready(function ($) {
   updateRollSizeOptions();
   updatePrice();
 });
+    
+   
