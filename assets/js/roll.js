@@ -46,6 +46,7 @@ jQuery(document).ready(function ($) {
         },
         size_custom: {
           price: 1.60,
+          weight: 0.136572,          
           label: "Custom Size: (price x total sq ft)",
         },
       },
@@ -76,7 +77,8 @@ jQuery(document).ready(function ($) {
           weight: 1.91196426,
         },
         size_custom: {
-          price: 1.80,
+          price: 1.80,       
+          weight: 0.1785714,   
           label: "Custom Size: (price x total sq ft)",
         },
       },
@@ -160,8 +162,7 @@ jQuery(document).ready(function ($) {
       selectedWidth = convertWidthToFeet();
       selectedHeight = convertHeightToFeet();
 
-       console.log("🚀 ~ selectedWidth:", selectedWidth)
-        console.log("🚀 ~ selectedHeight", selectedHeight)
+    
 
       var sq_inch_totalArea = selectedWidth * 12 * (selectedHeight * 12);
       var totalArea = selectedWidth * selectedHeight;
@@ -169,12 +170,25 @@ jQuery(document).ready(function ($) {
       var cubic_Area_Box = 5880;
       var Total_Box = cubic_Area_Tarp / cubic_Area_Box;
 
-      var totalPrice = totalArea * selectedPricePerSqFt;
-      var totalPrice = totalArea * 1.55;
+        var sqPriceValue =   prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
 
-      var sqWeightValue = prices[selectedMaterial]?.wt || 0;
+      var totalPrice = totalArea * sqPriceValue;
 
-      let TotalWeight = selectedPricePerSqFt * totalArea;
+     
+   
+
+     
+
+     
+
+      let TotalWeight = (selectedWidth * selectedHeight)*sqWeightValue;
+         console.log("🚀 ~ totalPrice:", totalPrice)
+        console.log("🚀 ~ selectedWidth:", selectedWidth)
+      console.log("🚀 ~ selectedHeight", selectedHeight)
+      console.log("🚀 ~ TotalWeight", TotalWeight)
+      console.log("🚀 ~ TotalWeight", TotalWeight)
+
+      
 
       $("#weight_display").text(TotalWeight);
       $("#area_display").text(Math.ceil(Total_Box));
