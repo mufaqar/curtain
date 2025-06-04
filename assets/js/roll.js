@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
           weight: 1.67,
         },
         size_custom: {
-          price: 0.136572,
+          price: 1.60,
           label: "Custom Size: (price x total sq ft)",
         },
       },
@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
           weight: 1.91196426,
         },
         size_custom: {
-          price: 1.75,
+          price: 1.80,
           label: "Custom Size: (price x total sq ft)",
         },
       },
@@ -160,6 +160,9 @@ jQuery(document).ready(function ($) {
       selectedWidth = convertWidthToFeet();
       selectedHeight = convertHeightToFeet();
 
+       console.log("🚀 ~ selectedWidth:", selectedWidth)
+        console.log("🚀 ~ selectedHeight", selectedHeight)
+
       var sq_inch_totalArea = selectedWidth * 12 * (selectedHeight * 12);
       var totalArea = selectedWidth * selectedHeight;
       var cubic_Area_Tarp = sq_inch_totalArea * 0.03;
@@ -186,7 +189,7 @@ jQuery(document).ready(function ($) {
     $("#selectedSize_Label").val(selectedSize_Label);
     $("#SizeValue").val(SizeValue);
 
-    //console.log("🚀 ~ updatePrice ~ TotalWeight:", TotalWeight)
+   
 
     // Check if the electric system is selected and add the price
     var electricSystem = $("#electric_system").val();
