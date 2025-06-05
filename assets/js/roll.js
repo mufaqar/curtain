@@ -146,8 +146,11 @@ jQuery(document).ready(function ($) {
 
     let WH = (selectedWidth * selectedHeight)/10;
 
-    console.log("WH",WH);
-    var totalPrice = selectedPricePerSqFt * WH;
+
+    var totalPrice = selectedPricePerSqFt * selectedHeight;
+
+    console.log("WselectedHeightH",selectedHeight);
+    console.log("selectedPricePerSqFt",selectedPricePerSqFt);
 
     let TotalWeight = parseFloat((sqWeightValue * selectedWidth).toFixed(2));
  
@@ -160,11 +163,7 @@ jQuery(document).ready(function ($) {
     $("#size_display").text(selectedWidth * selectedHeight);
 
 
-      //  console.log("🚀 ~ totalPrice:", totalPrice)
-      //   console.log("🚀 ~ selectedWidth:", selectedWidth)
-      // console.log("🚀 ~ selectedHeight", selectedHeight)
-      // console.log("🚀 ~ TotalWeight", TotalWeight)
-
+   
 
     // Calculate custom width if the size is custom
     if (selectedSize === "size_custom") {
