@@ -145,15 +145,10 @@ jQuery(document).ready(function ($) {
     var SizeValue = prices[selectedMaterial]?.roll_pr[selectedSize]?.value || 0;
 
     let WH = (selectedWidth * selectedHeight)/10;
-
-
     var totalPrice = selectedPricePerSqFt * selectedHeight;
-
     console.log("WselectedHeightH",selectedHeight);
     console.log("selectedPricePerSqFt",selectedPricePerSqFt);
-
     let TotalWeight = parseFloat((sqWeightValue * selectedWidth).toFixed(2));
- 
 
     $("#total_price_display").text("$" + totalPrice.toFixed(2));
     $("#cal_weight").val(TotalWeight.toFixed(2));
