@@ -8,7 +8,6 @@ Author: PowerUp
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
 // Include necessary files
 include_once plugin_dir_path(__FILE__) . 'includes/enqueue-scripts.php';
 include_once plugin_dir_path(__FILE__) . 'includes/custom-options.php';
