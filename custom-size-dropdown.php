@@ -2,7 +2,7 @@
 /*
 Plugin Name: Curtain Options
 Description: Custom curtain options to WooCommerce products.
-Version: 4.0.1
+Version: 4.0.2
 Author: PowerUp
 */
 if (!defined('ABSPATH')) {
