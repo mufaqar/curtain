@@ -148,10 +148,10 @@ jQuery(document).ready(function ($) {
     var totalPrice = selectedPricePerSqFt * selectedHeight;
     console.log("sqWeightValue",sqWeightValue);
     console.log("selectedPricePerSqFt",selectedPricePerSqFt);
-    let TotalWeight = parseFloat((sqWeightValue * selectedHeight).toFixed(2));
+    let TotalWeight = parseFloat(sqWeightValue * selectedHeight);
 
-    $("#total_price_display").text("$" + totalPrice.toFixed(2));
-    $("#cal_weight").val(TotalWeight.toFixed(2));
+    $("#total_price_display").text("$" + totalPrice);
+    $("#cal_weight").val(TotalWeight);
 
     $("#weight_display").text(TotalWeight);
     $("#area_display").text(Math.ceil(Total_Box));
@@ -191,7 +191,7 @@ jQuery(document).ready(function ($) {
       $("#weight_display").text(TotalWeight);
       $("#area_display").text(Math.ceil(Total_Box));
       $("#size_display").text(selectedWidth * selectedHeight);
-      $("#cal_weight").val(TotalWeight.toFixed(2));
+      $("#cal_weight").val(TotalWeight);
     }
 
     $("#cal_width").val(selectedWidth);
@@ -210,8 +210,8 @@ jQuery(document).ready(function ($) {
       totalPrice += electricSystemPrice;
     }
 
-    $("#price_display").text(totalPrice.toFixed(2));
-    $("#cal_price").val(totalPrice.toFixed(2));
+    $("#price_display").text(totalPrice);
+    $("#cal_price").val(totalPrice);
   }
 
   function convertWidthToFeet() {
